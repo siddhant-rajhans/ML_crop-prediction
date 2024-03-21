@@ -1,5 +1,6 @@
 # Import essential libraries
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier  # Consider classification model
@@ -41,14 +42,52 @@ model = DecisionTreeClassifier()
 model.fit(X_train, y_train)
 
 
- # Predicted values from model 
-ah=tp['Air Humidity']
-atemp=tp['Air Temp']
-shum=tp['Soil Humidity']
-pH=tp['Soil pH']
-rain=tp['Rainfall']
-
-
 # Evaluate model accuracy on unseen data
 accuracy = accuracy_score(y_test, model.predict(X_test)) * 100
 print("Model accuracy:", accuracy)
+
+
+# # **Display data from CSV**
+
+# # Show the first row of the data (assuming informative features)
+# print("\nData preview (first row):")
+# display(data.head(1))  # Use display() for Jupyter Notebook output
+
+# # **Prediction using randomly selected data**
+
+# # Select a random sample from the test set (replace 1 with your desired sample size)
+# random_index = numpy.random.randint(0, len(X_test) - 1)
+# random_data = X_test[random_index].reshape(1, -1)
+
+# # Scale the random data using the same scaler
+# random_data_scaled = scaler.transform(random_data)
+
+# # Make prediction on the random data
+# prediction = model.predict(random_data_scaled)[0]  # Get the first element
+
+# # Print the predicted crop based on the index
+# print("\nPredicted crop:", crops[prediction])
+
+# **Display a sample data point**
+print("\nSample data point:")
+print(data.head(1))  # Display the first row
+
+# **Display data after one-hot encoding (assuming you have a single label column)**
+print("\nThe data present in one row of the dataset after one-hot encoding:")
+encoded_data = pd.get_dummies(data.iloc[0], columns=['label'], drop_first=True)
+print(pd.concat([data.iloc[0, :-1], encoded_data], axis=1))  # Combine features and encoded labels
+
+# **Prediction using randomly selected data**
+
+# Select a random sample from the test set (replace 1 with your desired sample size)
+random_index = np.random.randint(0, len(X_test) - 1)
+random_data = X_test[random_index].reshape(1, -1)
+
+# Scale the random data using the same scaler
+random_data_scaled = scaler.transform(random_data)
+
+# Make prediction on the random data
+prediction = model.predict(random_data_scaled)[0]  # Get the first element
+
+# Print the predicted crop based on the index
+print("\nThe predicted crop is:", crops[prediction])
