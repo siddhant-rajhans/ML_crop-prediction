@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier  # Consider classification model
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 
 # Define crop labels (modify these based on your actual labels)
 crops = ['wheat', 'mungbean', 'Tea', 'millet', 'maize', 'lentil', 'jute', 'cofee',
@@ -40,6 +41,49 @@ X_test = scaler.transform(X_test)
 # Create and train a decision tree model (can be replaced with other models)
 model = DecisionTreeClassifier()
 model.fit(X_train, y_train)
+
+# Import libraries for SVM and Random Forest
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+
+# Create SVM and Random Forest models
+svm_model = SVC()
+rf_model = RandomForestClassifier()
+
+# Fit the models
+svm_model.fit(X_train, y_train)
+rf_model.fit(X_train, y_train)
+
+# Evaluate model performance on test data
+svm_accuracy = accuracy_score(y_test, svm_model.predict(X_test)) * 100
+rf_accuracy = accuracy_score(y_test, rf_model.predict(X_test)) * 100
+
+print("SVM model accuracy:", svm_accuracy)
+print("Random Forest model accuracy:", rf_accuracy)
+
+
+
+# Calculate precision, recall, F1, and confusion matrix
+svm_precision = precision_score(y_test, svm_model.predict(X_test))
+svm_recall = recall_score(y_test, svm_model.predict(X_test))
+svm_f1 = f1_score(y_test, svm_model.predict(X_test))
+svm_cm = confusion_matrix(y_test, svm_model.predict(X_test))
+
+rf_precision = precision_score(y_test, rf_model.predict(X_test))
+rf_recall = recall_score(y_test, rf_model.predict(X_test))
+rf_f1 = f1_score(y_test, rf_model.predict(X_test))
+rf_cm = confusion_matrix(y_test, rf_model.predict(X_test))
+
+print("SVM model precision:", svm_precision)
+print("SVM model recall:", svm_recall)
+print("SVM model F1:", svm_f1)
+print("SVM model confusion matrix:\n", svm_cm)
+
+print("Random Forest model precision:", rf_precision)
+print("Random Forest model recall:", rf_recall)
+print("Random Forest model F1:", rf_f1)
+print("Random Forest model confusion matrix:\n", rf_cm)
+
 
 
 # Evaluate model accuracy on unseen data
