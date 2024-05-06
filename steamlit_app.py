@@ -41,9 +41,9 @@ dt_model = DecisionTreeClassifier()
 dt_model.fit(X_train, y_train)
 
 # Save models
-joblib.dump(svm_model, 'svm_model.pkl')
-joblib.dump(rf_model, 'rf_model.pkl')
-joblib.dump(dt_model, 'dt_model.pkl')
+joblib.dump(svm_model, 'models/svm_model.pkl')
+joblib.dump(rf_model, 'models/rf_model.pkl')
+joblib.dump(dt_model, 'models/dt_model.pkl')
 
 # Streamlit UI
 def main():
